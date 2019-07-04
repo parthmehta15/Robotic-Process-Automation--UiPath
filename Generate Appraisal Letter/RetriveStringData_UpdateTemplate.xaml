@@ -1,0 +1,151 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="RetriveStringData_UpdateTemplate" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="http://schemas.uipath.com/workflow/activities/word" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:un="clr-namespace:UiPathTeam.NumberToWordsActivities;assembly=NumberToWordsActivities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>526,3521</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>RetriveStringData_UpdateTemplate_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="22">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Orchestrator.Client</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="22">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OrchestratorClient</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.Word</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="RetriveStringData_UpdateTemplate" sap:VirtualizedContainerService.HintSize="486,3441" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:Boolean" Name="pathExists" />
+      <Variable x:TypeArguments="ui:GenericValue" Name="name" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Assign sap:VirtualizedContainerService.HintSize="464,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="ui:GenericValue">[name]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="ui:GenericValue">[in_TransactionItem.SpecificContent("Name").ToString]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:PathExists DisplayName="Path Exists" Exists="[pathExists]" sap:VirtualizedContainerService.HintSize="464,89" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[in_Config(&quot;DestinationFolder&quot;).toString]" PathType="Folder" />
+    <If Condition="[pathExists]" sap:VirtualizedContainerService.HintSize="464,208" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Else>
+        <ui:CreateDirectory ContinueOnError="{x:Null}" DisplayName="Create Directory" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="CreateDirectory_1" Path="[in_Config(&quot;DestinationFolder&quot;).ToString]" />
+      </If.Else>
+    </If>
+    <ui:CopyFile ContinueOnError="{x:Null}" Destination="[in_Config(&quot;DestinationFolder&quot;).ToString+&quot;\&quot;+name+&quot;.docx&quot;]" DisplayName="Copy File" sap:VirtualizedContainerService.HintSize="464,22" sap2010:WorkflowViewState.IdRef="CopyFile_3" Overwrite="False" Path="[in_Config(&quot;Word_Letter_Template&quot;).ToString]" />
+    <Sequence sap:VirtualizedContainerService.HintSize="464,2716" sap2010:WorkflowViewState.IdRef="Sequence_6">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <p:WordApplicationScope DisplayName="Word Application Scope" FilePath="[in_Config(&quot;DestinationFolder&quot;).ToString+&quot;\&quot;+name+&quot;.docx&quot;]" sap:VirtualizedContainerService.HintSize="414,2592" sap2010:WorkflowViewState.IdRef="WordApplicationScope_3">
+        <p:WordApplicationScope.Body>
+          <ActivityAction x:TypeArguments="ui:WordDocument">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="ui:WordDocument" Name="WordDocumentScope" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="336,2483" sap2010:WorkflowViewState.IdRef="Sequence_5">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:String" Name="inWords" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_30" Replace="[in_TransactionItem.SpecificContent(&quot;Date&quot;).ToString]" Search="&lt;Date&gt;" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_31" Replace="[name]" Search="&lt;Name&gt;" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_32" Replace="[in_TransactionItem.SpecificContent(&quot;wef&quot;).ToString]" Search="&lt;wef&gt;" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_34" Replace="[in_TransactionItem.SpecificContent(&quot;Basic&quot;).ToString]" Search="&lt;MBasic&gt;" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_45" Replace="[(CINT(in_TransactionItem.SpecificContent(&quot;Basic&quot;))*12).ToString]" Search="&lt;ABasic&gt;" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_35" Replace="[in_TransactionItem.SpecificContent(&quot;House_Rent_Allowance&quot;).ToString]" Search="&lt;MHRA&gt;" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_46" Replace="[(CINT(in_TransactionItem.SpecificContent(&quot;House_Rent_Allowance&quot;))*12).ToString]" Search="&lt;AHRA&gt;" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_36" Replace="[in_TransactionItem.SpecificContent(&quot;Professional_Development_Allowance&quot;).ToString]" Search="&lt;MPDA&gt;" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_52" Replace="[(CINT(in_TransactionItem.SpecificContent(&quot;Professional_Development_Allowance&quot;))*12).ToString]" Search="&lt;APDA&gt;" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_37" Replace="[in_TransactionItem.SpecificContent(&quot;Conveyance&quot;).ToString]" Search="&lt;MCon&gt;" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_48" Replace="[(CINT(in_TransactionItem.SpecificContent(&quot;Conveyance&quot;))*12).ToString]" Search="&lt;ACon&gt;" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_38" Replace="[in_TransactionItem.SpecificContent(&quot;Helper_Allowance&quot;).ToString]" Search="&lt;MHA&gt;" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_53" Replace="[(CINT(in_TransactionItem.SpecificContent(&quot;Helper_Allowance&quot;))*12).ToString]" Search="&lt;AHA&gt;" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_39" Replace="[in_TransactionItem.SpecificContent(&quot;Medical_Reimbursement&quot;).ToString]" Search="&lt;MMEd&gt;" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_49" Replace="[(CINT(in_TransactionItem.SpecificContent(&quot;Medical_Reimbursement&quot;))*12).ToString]" Search="&lt;AMEd&gt;" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_40" Replace="[in_TransactionItem.SpecificContent(&quot;Meal_Vouchers&quot;).ToString]" Search="&lt;MMV&gt;" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_50" Replace="[(CINT(in_TransactionItem.SpecificContent(&quot;Meal_Vouchers&quot;))*12).ToString]" Search="&lt;AMV&gt;" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_41" Replace="[in_TransactionItem.SpecificContent(&quot;Other_Allowance&quot;).ToString]" Search="&lt;MOA&gt;" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_51" Replace="[(CINT(in_TransactionItem.SpecificContent(&quot;Other_Allowance&quot;))*12).ToString]" Search="&lt;AOA&gt;" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_42" Replace="[in_TransactionItem.SpecificContent(&quot;Monthly_Gross&quot;).ToString]" Search="&lt;MonGross&gt;" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_44" Replace="[in_TransactionItem.SpecificContent(&quot;Monthly_Gross&quot;).ToString]" Search="&lt;MonCTC&gt;" />
+              <un:ConvertNumberToWords DisplayName="Convert number to words" sap:VirtualizedContainerService.HintSize="314,82" sap2010:WorkflowViewState.IdRef="ConvertNumberToWords_1" Language="English" Number="[CINT(in_TransactionItem.SpecificContent(&quot;Monthly_Gross&quot;))]" ResultWords="[inWords]" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_54" Replace="[StrConv(inWords, VbStrConv.ProperCase)]" Search="&lt;RUPEES&gt;" />
+              <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text" sap:VirtualizedContainerService.HintSize="314,59" sap2010:WorkflowViewState.IdRef="WordReplaceText_43" Replace="[in_TransactionItem.SpecificContent(&quot;Annual_Gross&quot;).ToString]" Search="&lt;AnnGross&gt;" />
+            </Sequence>
+          </ActivityAction>
+        </p:WordApplicationScope.Body>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </p:WordApplicationScope>
+    </Sequence>
+    <ui:SetTransactionStatus ContinueOnError="{x:Null}" Reason="{x:Null}" ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Set Transaction Status" ErrorType="Business" sap:VirtualizedContainerService.HintSize="464,22" sap2010:WorkflowViewState.IdRef="SetTransactionStatus_1" Status="Successful" TransactionItem="[in_TransactionItem]">
+      <ui:SetTransactionStatus.Output>
+        <scg:Dictionary x:TypeArguments="x:String, InArgument" />
+      </ui:SetTransactionStatus.Output>
+    </ui:SetTransactionStatus>
+  </Sequence>
+</Activity>
